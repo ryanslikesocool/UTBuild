@@ -11,6 +11,7 @@ using UnityEditor.SceneManagement;
 using UnityEditor.Build.Reporting;
 
 namespace UTBuild {
+    [CreateAssetMenu(menuName = "Developed With Love/UTBuild/Build Configuration")]
     public class BuildConfiguration : ScriptableObject {
         public string buildPath = "Builds";
         public PlatformConfig[] configs = new PlatformConfig[0];
