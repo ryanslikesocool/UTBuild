@@ -15,6 +15,8 @@ namespace UTBuild {
         public string buildPath = "Builds";
         public PlatformConfig[] configs = new PlatformConfig[0];
 
+        internal static PlatformConfig ActiveConfig { get; private set; }
+
         internal void Build() {
             Scene previous = EditorSceneManager.GetActiveScene();
             string initialPath = previous.path;
@@ -27,6 +29,8 @@ namespace UTBuild {
                 EditorSceneManager.CloseScene(previous, true);
                 previous = scene;
 
+                ActiveConfig = configs[i];
+
                 BuildReport report = BuildPipeline.BuildPlayer(opts[i]);
                 string err = report.summary.result == BuildResult.Succeeded ? string.Empty : "See log";
 
@@ -36,6 +40,8 @@ namespace UTBuild {
             }
             EditorSceneManager.OpenScene(initialPath, OpenSceneMode.Single);
             EditorSceneManager.CloseScene(previous, true);
+
+            ActiveConfig = default(PlatformConfig);
         }
 
         private BuildPlayerOptions[] SelectedBuildOptions() => configs.Select(c => BuildOpts(c, c.platform)).ToArray();
