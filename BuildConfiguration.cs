@@ -110,12 +110,14 @@ namespace UTBuild {
         }
 
         [Serializable]
-#if ODIN_INSPECTOR_3
-        [HideLabel]
-#endif
         internal struct ConfigState {
+#if ODIN_INSPECTOR_3
+            [ToggleGroup("include"), SerializeField] internal bool include;
+            [ToggleGroup("include"), SerializeField] internal PlatformConfig config;
+#else
             [SerializeField] internal bool include;
             [SerializeField] internal PlatformConfig config;
+#endif
         }
     }
 }
