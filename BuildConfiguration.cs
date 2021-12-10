@@ -110,6 +110,9 @@ namespace UTBuild {
         }
 
         [Serializable]
+#if ODIN_INSPECTOR_3
+        [InlineProperty]
+#endif
         internal struct ConfigState {
 #if ODIN_INSPECTOR_3
             [ToggleGroup("include"), SerializeField] internal bool include;

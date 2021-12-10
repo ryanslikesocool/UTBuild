@@ -6,9 +6,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEditor.Build.Reporting;
-#if ODIN_INSPECTOR_3
-using Sirenix.OdinInspector;
-#endif
 
 namespace UTBuild {
     [Serializable]
