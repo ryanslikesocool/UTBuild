@@ -115,11 +115,11 @@ namespace UTBuild {
 #endif
         internal struct ConfigState {
 #if ODIN_INSPECTOR
-            [ToggleGroup("include"), SerializeField] internal bool include;
-            [ToggleGroup("include"), SerializeField] internal PlatformConfig config;
+            [ToggleGroup("include")] public bool include;
+            [ToggleGroup("include")] public PlatformConfig config;
 #else
-            [SerializeField] internal bool include;
-            [SerializeField] internal PlatformConfig config;
+            public bool include;
+            public PlatformConfig config;
 #endif
         }
     }
