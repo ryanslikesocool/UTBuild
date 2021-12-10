@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.Build.Reporting;
-#if ODIN_INSPECTOR_3
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
 
@@ -110,11 +110,11 @@ namespace UTBuild {
         }
 
         [Serializable]
-#if ODIN_INSPECTOR_3
+#if ODIN_INSPECTOR
         [InlineProperty]
 #endif
         internal struct ConfigState {
-#if ODIN_INSPECTOR_3
+#if ODIN_INSPECTOR
             [ToggleGroup("include"), SerializeField] internal bool include;
             [ToggleGroup("include"), SerializeField] internal PlatformConfig config;
 #else
