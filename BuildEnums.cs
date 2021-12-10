@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UTBuild {
     [Flags]
-    public enum Platform {
+    internal enum Platform {
         [InspectorName("macOS (Intel)")] macOS_Intel = 1 << 0,
         [InspectorName("macOS (Apple)")] macOS_Silicon = 1 << 1,
         macOS = macOS_Intel | macOS_Silicon,
@@ -17,7 +17,7 @@ namespace UTBuild {
         Linux = 1 << 6,
     }
 
-    public enum Compression {
+    internal enum Compression {
         Default,
         LZ4,
         [InspectorName("LZ4HC")] LZ4HC

@@ -2,6 +2,7 @@
 
 #if UNITY_EDITOR
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
@@ -11,14 +12,14 @@ using Sirenix.OdinInspector;
 
 namespace UTBuild {
     [Serializable]
-    public abstract class PlatformConfig {
+    public abstract class PlatformConfig : ScriptableObject {
 #if ODIN_INSPECTOR_3
-        [ToggleGroup("include", "$DisplayString")] public bool include;
-        [ToggleGroup("include")] public bool developmentBuild;
-        [ToggleGroup("include")] public string buildName;
-        [ToggleGroup("include")] public Platform platform;
-        [ToggleGroup("include")] public Compression compression;
-        [ToggleGroup("include")] public SceneAsset scene;
+        [ToggleGroup("include", "$DisplayString")] internal bool include;
+        [ToggleGroup("include")] internal bool developmentBuild;
+        [ToggleGroup("include")] internal string buildName;
+        [ToggleGroup("include")] internal Platform platform;
+        [ToggleGroup("include")] internal Compression compression;
+        [ToggleGroup("include")] internal SceneAsset scene;
 
         private string DisplayString => $"{PlatformToString()} - \"{buildName}\"{DevelopmentString}";
         private string DevelopmentString => developmentBuild ? " - Development" : string.Empty;
@@ -35,12 +36,12 @@ namespace UTBuild {
             _ => "Undefined"
         };
 #else
-        public bool include;
-        public bool developmentBuild;
-        public string buildName;
-        public Platform platform;
-        public Compression compression;
-        public SceneAsset scene;
+        internal bool include;
+        internal bool developmentBuild;
+        internal string buildName;
+        internal Platform platform;
+        internal Compression compression;
+        internal SceneAsset scene;
 #endif
 
         internal abstract void ProcessScene(Scene scene, BuildReport report);

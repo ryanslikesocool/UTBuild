@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace UTBuild {
     [CustomEditor(typeof(BuildConfiguration))]
-    public class BuildConfigurationEditor : Editor {
+    internal class BuildConfigurationEditor : Editor {
         private BuildConfiguration configuration = null;
 
         public void OnEnable() {
