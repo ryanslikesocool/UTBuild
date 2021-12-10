@@ -9,12 +9,15 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.Build.Reporting;
+#if ODIN_INSPECTOR_3
+using Sirenix.OdinInspector;
+#endif
 
 namespace UTBuild {
     [CreateAssetMenu(menuName = "Developed With Love/UTBuild/Build Configuration")]
     public class BuildConfiguration : ScriptableObject {
-        public string buildPath = "Builds";
-        public PlatformConfig[] configs = new PlatformConfig[0];
+        [SerializeField] internal string buildPath = "Builds";
+        [SerializeField] internal ConfigState[] configs = new ConfigState[0];
 
         internal static PlatformConfig ActiveConfig { get; private set; }
 
@@ -25,12 +28,12 @@ namespace UTBuild {
             for (int i = 0; i < opts.Length; i++) {
                 if (!configs[i].include) { continue; }
 
-                string path = AssetDatabase.GetAssetPath(configs[i].scenes[0]);
+                string path = AssetDatabase.GetAssetPath(configs[i].config.scenes[0]);
                 Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
                 EditorSceneManager.CloseScene(previous, true);
                 previous = scene;
 
-                ActiveConfig = configs[i];
+                ActiveConfig = configs[i].config;
 
                 BuildReport report = BuildPipeline.BuildPlayer(opts[i]);
                 string err = report.summary.result == BuildResult.Succeeded ? string.Empty : "See log";
@@ -45,7 +48,7 @@ namespace UTBuild {
             ActiveConfig = default(PlatformConfig);
         }
 
-        private BuildPlayerOptions[] SelectedBuildOptions() => configs.Select(c => BuildOpts(c, c.platform)).ToArray();
+        private BuildPlayerOptions[] SelectedBuildOptions() => configs.Select(c => BuildOpts(c.config, c.config.platform)).ToArray();
 
         private BuildTarget UnityTarget(Platform t) => t switch {
             Platform.macOS_Intel => BuildTarget.StandaloneOSX,
@@ -104,6 +107,15 @@ namespace UTBuild {
                 case Compression.LZ4HC: return BuildOptions.CompressWithLz4HC;
                 default: return BuildOptions.None;
             }
+        }
+
+        [Serializable]
+#if ODIN_INSPECTOR_3
+        [HideLabel]
+#endif
+        internal struct ConfigState {
+            [SerializeField] internal bool include;
+            [SerializeField] internal PlatformConfig config;
         }
     }
 }

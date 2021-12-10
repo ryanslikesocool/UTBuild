@@ -13,36 +13,11 @@ using Sirenix.OdinInspector;
 namespace UTBuild {
     [Serializable]
     public abstract class PlatformConfig : ScriptableObject {
-#if ODIN_INSPECTOR_3
-        [ToggleGroup("include", "$DisplayString"), SerializeField] internal bool include;
-        [ToggleGroup("include"), SerializeField] internal bool developmentBuild;
-        [ToggleGroup("include"), SerializeField] internal string buildName;
-        [ToggleGroup("include"), SerializeField] internal Platform platform;
-        [ToggleGroup("include"), SerializeField] internal Compression compression;
-        [ToggleGroup("include"), SerializeField] internal SceneAsset[] scenes;
-
-        private string DisplayString => $"{PlatformToString()} - \"{buildName}\"{DevelopmentString}";
-        private string DevelopmentString => developmentBuild ? " - Development" : string.Empty;
-
-        private string PlatformToString() => platform switch {
-            Platform.Android => "Android",
-            Platform.iOS => "iOS",
-            Platform.Linux => "Linux",
-            Platform.macOS => "macOS (Universal)",
-            Platform.macOS_Intel => "macOS (Intel)",
-            Platform.macOS_Silicon => "macOS (Silicon)",
-            Platform.tvOS => "tvOS",
-            Platform.Windows => "Windows",
-            _ => "Undefined"
-        };
-#else
-        [SerializeField] internal bool include;
-        [SerializeField] internal bool developmentBuild;
-        [SerializeField] internal string buildName;
+        [SerializeField] internal bool developmentBuild = false;
+        [SerializeField] internal string buildName = "Build";
         [SerializeField] internal Platform platform;
-        [SerializeField] internal Compression compression;
-        [SerializeField] internal SceneAsset scene;
-#endif
+        [SerializeField] internal Compression compression = Compression.LZ4;
+        [SerializeField] internal SceneAsset[] scenes = new SceneAsset[0];
 
         public abstract void ProcessScene(Scene scene, BuildReport report);
     }
