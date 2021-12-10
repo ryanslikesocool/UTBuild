@@ -14,12 +14,12 @@ namespace UTBuild {
     [Serializable]
     public abstract class PlatformConfig : ScriptableObject {
 #if ODIN_INSPECTOR_3
-        [ToggleGroup("include", "$DisplayString")] internal bool include;
-        [ToggleGroup("include")] internal bool developmentBuild;
-        [ToggleGroup("include")] internal string buildName;
-        [ToggleGroup("include")] internal Platform platform;
-        [ToggleGroup("include")] internal Compression compression;
-        [ToggleGroup("include")] internal SceneAsset[] scenes;
+        [ToggleGroup("include", "$DisplayString"), SerializeField] internal bool include;
+        [ToggleGroup("include"), SerializeField] internal bool developmentBuild;
+        [ToggleGroup("include"), SerializeField] internal string buildName;
+        [ToggleGroup("include"), SerializeField] internal Platform platform;
+        [ToggleGroup("include"), SerializeField] internal Compression compression;
+        [ToggleGroup("include"), SerializeField] internal SceneAsset[] scenes;
 
         private string DisplayString => $"{PlatformToString()} - \"{buildName}\"{DevelopmentString}";
         private string DevelopmentString => developmentBuild ? " - Development" : string.Empty;
@@ -36,12 +36,12 @@ namespace UTBuild {
             _ => "Undefined"
         };
 #else
-        internal bool include;
-        internal bool developmentBuild;
-        internal string buildName;
-        internal Platform platform;
-        internal Compression compression;
-        internal SceneAsset scene;
+        [SerializeField] internal bool include;
+        [SerializeField] internal bool developmentBuild;
+        [SerializeField] internal string buildName;
+        [SerializeField] internal Platform platform;
+        [SerializeField] internal Compression compression;
+        [SerializeField] internal SceneAsset scene;
 #endif
 
         public abstract void ProcessScene(Scene scene, BuildReport report);
