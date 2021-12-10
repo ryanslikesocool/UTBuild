@@ -24,7 +24,7 @@ namespace UTBuild {
             for (int i = 0; i < opts.Length; i++) {
                 if (!configs[i].include) { continue; }
 
-                string path = AssetDatabase.GetAssetPath(configs[i].scene);
+                string path = AssetDatabase.GetAssetPath(configs[i].scenes[0]);
                 Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
                 EditorSceneManager.CloseScene(previous, true);
                 previous = scene;
@@ -61,7 +61,7 @@ namespace UTBuild {
         private BuildPlayerOptions BuildOpts(PlatformConfig settings, Platform target) {
             BuildPlayerOptions o = new BuildPlayerOptions();
 
-            o.scenes = new string[] { AssetDatabase.GetAssetPath(settings.scene) };
+            o.scenes = settings.scenes.Select(scene => AssetDatabase.GetAssetPath(scene)).ToArray();
             string subfolder = target.ToString();
             o.locationPathName = Path.Combine(buildPath, subfolder);
             o.locationPathName = Path.Combine(o.locationPathName, settings.buildName);

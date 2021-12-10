@@ -19,7 +19,7 @@ namespace UTBuild {
         [ToggleGroup("include")] internal string buildName;
         [ToggleGroup("include")] internal Platform platform;
         [ToggleGroup("include")] internal Compression compression;
-        [ToggleGroup("include")] internal SceneAsset scene;
+        [ToggleGroup("include")] internal SceneAsset[] scenes;
 
         private string DisplayString => $"{PlatformToString()} - \"{buildName}\"{DevelopmentString}";
         private string DevelopmentString => developmentBuild ? " - Development" : string.Empty;
