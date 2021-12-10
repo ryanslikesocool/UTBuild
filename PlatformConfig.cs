@@ -3,8 +3,8 @@
 #if UNITY_EDITOR
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using UnityEditor.Build.Reporting;
 #if ODIN_INSPECTOR_3
 using Sirenix.OdinInspector;
@@ -44,7 +44,7 @@ namespace UTBuild {
         internal SceneAsset scene;
 #endif
 
-        internal abstract void ProcessScene(Scene scene, BuildReport report);
+        public abstract void ProcessScene(Scene scene, BuildReport report);
     }
 }
 #endif
