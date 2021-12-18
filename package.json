@@ -1,8 +1,8 @@
 {
   "name": "com.developedwithlove.utbuild",
   "displayName": "UTBuild",
-  "version": "1.0.0",
-  "description": "Configurable build system for Unity",
+  "version": "1.0.1",
+  "description": "Experimental build system for Unity",
   "documentationUrl": "https://github.com/ryanslikesocool/UTBuild",
   "author": {
     "name": "Ryan Boyer",

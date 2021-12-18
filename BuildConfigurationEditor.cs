@@ -1,6 +1,6 @@
 // Developed With Love by Ryan Boyer http://ryanjboyer.com <3
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !ODIN_INSPECTOR_3
 using UnityEngine;
 using UnityEditor;
 

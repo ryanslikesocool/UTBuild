@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.Build.Reporting;
-#if ODIN_INSPECTOR
+#if ODIN_INSPECTOR_3
 using Sirenix.OdinInspector;
 #endif
 
@@ -21,6 +21,9 @@ namespace UTBuild {
 
         internal static PlatformConfig ActiveConfig { get; private set; }
 
+#if ODIN_INSPECTOR_3
+        [Button(ButtonSizes.Large)]
+#endif
         internal void Build() {
             Scene previous = EditorSceneManager.GetActiveScene();
             string initialPath = previous.path;
@@ -34,6 +37,8 @@ namespace UTBuild {
                 previous = scene;
 
                 ActiveConfig = configs[i].config;
+
+                configs[i].config.PreprocessApplication();
 
                 BuildReport report = BuildPipeline.BuildPlayer(opts[i]);
                 string err = report.summary.result == BuildResult.Succeeded ? string.Empty : "See log";
@@ -110,13 +115,13 @@ namespace UTBuild {
         }
 
         [Serializable]
-#if ODIN_INSPECTOR
-        [InlineProperty]
+#if ODIN_INSPECTOR_3
+        [Toggle("include")]
 #endif
         internal struct ConfigState {
-#if ODIN_INSPECTOR
-            [ToggleGroup("include")] public bool include;
-            [ToggleGroup("include")] public PlatformConfig config;
+#if ODIN_INSPECTOR_3
+            [Toggle("include")] public bool include;
+            public PlatformConfig config;
 #else
             public bool include;
             public PlatformConfig config;
