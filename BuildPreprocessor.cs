@@ -11,7 +11,7 @@ namespace UTBuild {
 
         public void OnProcessScene(Scene scene, BuildReport report) {
             PlatformConfig config = BuildConfiguration.ActiveConfig;
-            if (config.Equals(default(PlatformConfig))) {
+            if (config == null) {
                 return;
             }
             config.ProcessScene(scene, report);
